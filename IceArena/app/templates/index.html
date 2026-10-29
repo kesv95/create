@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ICE ARENA | 아이스 아레나</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='game.js') }}" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">LOCAL MULTIPLAYER · REAL-TIME ACTION</div>
+      <h1>ICE <span>ARENA</span></h1>
+      <p>얼음 함정을 설치하고, 상대보다 오래 살아남으세요.</p>
+    </header>
+
+    <section class="rules panel" aria-labelledby="rules-title">
+      <div>
+        <h2 id="rules-title">게임 규칙</h2>
+        <ul>
+          <li>각 플레이어는 생명 3개로 시작합니다.</li>
+          <li>얼음 함정은 설치 후 1.5초 뒤 발동하며, 남은 시간 숫자는 표시하지 않습니다.</li>
+          <li>아이템을 획득하면 함정 설치 한도 또는 폭발 범위가 증가합니다.</li>
+          <li>바나나를 밟으면 캐릭터가 미끄러져 이동 방향으로 밀려납니다.</li>
+          <li>얼음 폭발에 맞으면 생명 1개를 잃고 잠시 이동할 수 없습니다.</li>
+          <li>상대의 생명을 먼저 0으로 만들면 승리합니다.</li>
+          <li>두 플레이어가 동시에 쓰러지면 무승부입니다.</li>
+        </ul>
+      </div>
+      <div class="controls">
+        <h2>조작 방법</h2>
+        <p><b>플레이어 1</b> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 이동 · <kbd>F</kbd> 함정 설치</p>
+        <p><b>플레이어 2</b> <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> 이동 · <kbd>Enter</kbd> 함정 설치</p>
+        <p class="hint">아이템: ✚ 함정 추가 설치 · ✦ 폭발 범위 증가 · 🍌 밟으면 미끄러짐. 같은 키보드로 2명이 대전합니다.</p>
+      </div>
+    </section>
+
+    <section class="status-grid" aria-label="플레이어 상태">
+      <article class="player-card p1-card panel">
+        <div class="player-name"><span class="player-dot p1-dot"></span> PLAYER 1</div>
+        <div class="health-line"><span>생명</span><strong id="p1-health">♥ ♥ ♥</strong></div>
+        <div class="small-state" id="p1-state">대기 중</div>
+        <div class="key-summary">W A S D · F</div>
+      </article>
+      <article class="player-card p2-card panel">
+        <div class="player-name"><span class="player-dot p2-dot"></span> PLAYER 2</div>
+        <div class="health-line"><span>생명</span><strong id="p2-health">♥ ♥ ♥</strong></div>
+        <div class="small-state" id="p2-state">대기 중</div>
+        <div class="key-summary">방향키 · Enter</div>
+      </article>
+    </section>
+
+    <section class="game-panel panel">
+      <div class="game-toolbar">
+        <div><span class="label">경기 상태</span><strong id="game-state">준비 완료</strong></div>
+        <div><span class="label">경과 시간</span><strong id="game-time">00:00</strong></div>
+        <div><span class="label">남은 함정</span><strong id="trap-count">P1 1 · P2 1</strong></div>
+      </div>
+      <div class="arena-wrap">
+        <canvas id="arena" width="660" height="540" aria-label="아이스 아레나 게임 맵"></canvas>
+        <div id="overlay" class="overlay">
+          <div class="overlay-card">
+            <div class="overlay-mark">❄</div>
+            <h2 id="overlay-title">아이스 아레나</h2>
+            <p id="overlay-message">두 플레이어가 준비되면 시작하세요.</p>
+            <button id="start-button" class="primary-button">게임 시작</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-actions">
+        <p id="event-message" role="status" aria-live="polite">시작 버튼을 눌러 경기를 시작하세요.</p>
+        <button id="restart-button" class="secondary-button">새 경기 / 재시작</button>
+      </div>
+    </section>
+
+    <footer>
+      <p>ICE ARENA · 과제용 오리지널 미니게임</p>
+      <p>실시간 조작은 JavaScript에서 처리하며, Flask는 게임 페이지를 제공합니다.</p>
+    </footer>
+  </main>
+</body>
+</html>
